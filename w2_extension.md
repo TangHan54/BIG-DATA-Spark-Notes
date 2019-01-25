@@ -5,7 +5,7 @@
 2. interactive analytics（交互式分析）: Hadoop经常用于在很大的数据里通过SQL接口，比如说Pig和Hive，进行一些特定的探索性质的查询。理想状态下，用户应该能够加载他感兴趣的数据到memory（内存）并且进行多次查询。但是，使用Hadoop的过程中，每次查询都会产生大量的latency（延迟，十多秒）因为他是一个单独的MapReduce 任务，而且是从磁盘里读取数据的。
 ## Map-Reduce Programming model
 MapReduce programming paradigm is based on the concept of key-value pairs. A single key value pair is also referred to as a record.A Map-Reduce job is divided into four simple phases:\
-MapReduce programming paradigm 是基于key-value pairs的概念。每一对key-value也可以被称为一个record。每次Map-Reduce任务可以分成四步：\
+MapReduce programming paradigm 是基于key-value pairs的概念。每一对key-value也可以被称为一个record。每次Map-Reduce任务可以分成四步：\
 
 我们有很多手艺人，有叫mapper的，他们负责海选；有叫combiner的,他们负责整理归类；有叫reducer的，他们负责总结归纳。
 
@@ -14,10 +14,10 @@ Map function operates on a single record at a time. On each input of key-value p
 Map方程每次会处理一个record。处理每个key-value pair的时候，MapReduce框架就会唤醒map方程，并把key和value作为输入。
 2. Combine phase\
 The combiner is the process of applying a reducer logic early on an output from a single map process. Mappers output is collected into an in-memory buffer. MapReduce framework sorts this buffer and executes the commoner on it, if you have provided one. Combiner output is written to the disk.\
-这个手艺人combiner也懂一点reducer的手艺。他把结果从mapper那儿接过来后，先在他们身上试试水，然后把结果放在缓存里。要是你还提供了一种commoner，MapReduce这个框架还会给这些缓存排序以及把commoner在他们身上用用，最后combiner把他们搞定后就把他们写入了磁盘。
+这个手艺人combiner也懂一点reducer的手艺。他把结果从mapper那儿接过来后，先在他们身上试试水，然后把结果放在缓存里。要是你还提供了一种commoner，MapReduce这个框架还会给这些缓存排序以及把commoner在他们身上用用，最后combiner把他们搞定后就把他们写入了磁盘。
 3. Shuffle phase\
 In the shuffle phase, MapReduce partitions data and sends it to a reducer. Each mapper sends a partition to each reducer. Partitions are created by a Partitioner provided by the MapReduce framework. For each key-value pair, the Partitioner decides which reducer it needs to send. All the records for a same key are sent to a single reducer.\
-在这个所谓的shuffle的阶段，数据被拆分并且被送到reducer的手中。MapReduce还提供了切割服务，切完了，就送到不同的reducer手中。所有的拥有相同key的key-value pair都会被送到同一个屠宰场。
+在这个所谓的shuffle的阶段，数据被拆分并且被送到reducer的手中。MapReduce还提供了切割服务，切完了，就送到不同的reducer手中。所有的拥有相同key的key-value pair都会被送到同一个屠宰场。
 4. Reduce phase\
 During initialization of the reduce phase, each reducer copies its input partition from the output of each mapper. After copying all parts, the reducer first merges these parts and sorts all input records by key. In the Reduce phase, a reduce function is executed only once for each key found in the sorted output. MapReduce framework collects all the values of a key and creates a list of values. The Reduce function is executed on this list of values and a corresponding key. Notice that all the records for a key are sent to a single reducer, so only one reducer will output are frequency for a given word. The same word won’t be present in the output of the other reducers.\
 这些reducer都是很整洁的。他们先把接收到的数据收集起来，然后根据他们的key给他们排序。reducer很会捡懒，他们对同一个key的pairs都一起一次性处理。
