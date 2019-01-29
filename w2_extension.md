@@ -17,7 +17,7 @@ The combiner is the process of applying a reducer logic early on an output from 
 这个手艺人combiner也懂一点reducer的手艺。他把结果从mapper那儿接过来后，先在他们身上试试水，然后把结果放在缓存里。要是你还提供了一种commoner，MapReduce这个框架还会给这些缓存排序以及把commoner在他们身上用用，最后combiner把他们搞定后就把他们写入了磁盘。
 3. Shuffle phase\
 In the shuffle phase, MapReduce partitions data and sends it to a reducer. Each mapper sends a partition to each reducer. Partitions are created by a Partitioner provided by the MapReduce framework. For each key-value pair, the Partitioner decides which reducer it needs to send. All the records for a same key are sent to a single reducer.\
-在这个所谓的shuffle的阶段，数据被拆分并且被送到reducer的手中。MapReduce还提供了切割服务，切完了，就送到不同的reducer手中。所有的拥有相同key的key-value pair都会被送到同一个屠宰场。
+在这个所谓的shuffle的阶段，数据被拆分并且被送到reducer的手中。MapReduce还提供了切割服务，切完了，就送到不同的reducer手中。partitioner 会决定每个pair被送去哪个reducer。所有的拥有相同key的key-value pair都会被送到同一个屠宰场。
 4. Reduce phase\
 During initialization of the reduce phase, each reducer copies its input partition from the output of each mapper. After copying all parts, the reducer first merges these parts and sorts all input records by key. In the Reduce phase, a reduce function is executed only once for each key found in the sorted output. MapReduce framework collects all the values of a key and creates a list of values. The Reduce function is executed on this list of values and a corresponding key. Notice that all the records for a key are sent to a single reducer, so only one reducer will output are frequency for a given word. The same word won’t be present in the output of the other reducers.\
 这些reducer都是很整洁的。他们先把接收到的数据收集起来，然后根据他们的key给他们排序。reducer很会捡懒，他们对同一个key的pairs都一起一次性处理。
