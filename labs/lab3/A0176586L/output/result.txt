@@ -1,0 +1,5 @@
+doc4.txt, 1.0
+doc0.txt, 0.0
+doc1.txt, 0.0
+doc3.txt, 0.0
+doc2.txt, 0.0
