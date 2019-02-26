@@ -5,7 +5,7 @@
 2. interactive analytics（交互式分析）: Hadoop经常用于在很大的数据里通过SQL接口，比如说Pig和Hive，进行一些特定的探索性质的查询。理想状态下，用户应该能够加载他感兴趣的数据到memory（内存）并且进行多次查询。但是，使用Hadoop的过程中，每次查询都会产生大量的latency（延迟，十多秒）因为他是一个单独的MapReduce 任务，而且是从磁盘里读取数据的。
 ## Map-Reduce Programming model
 MapReduce programming paradigm is based on the concept of key-value pairs. A single key value pair is also referred to as a record.A Map-Reduce job is divided into four simple phases:\
-MapReduce programming paradigm 是基于key-value pairs的概念。每一对key-value也可以被称为一个record。每次Map-Reduce任务可以分成四步：\
+MapReduce programming paradigm 是基于key-value pairs的概念。每一对key-value也可以被称为一个record。每次Map-Reduce任务可以分成四步
 
 我们有很多手艺人，有叫mapper的，他们负责海选；有叫combiner的,他们负责整理归类；有叫reducer的，他们负责总结归纳。
 
